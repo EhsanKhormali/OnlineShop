@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OnlineShop.Data;
-using OnlineShop.Models;
+using Data.Context;
+using Domain.Entities;
 
 namespace OnlineShop.Pages.CompanyManagment
 {
     public class CreateModel : PageModel
     {
-        private readonly OnlineShop.Data.OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
 
-        public CreateModel(OnlineShop.Data.OnlineShopContext context)
+        public CreateModel(OnlineShopContext context)
         {
             _context = context;
         }

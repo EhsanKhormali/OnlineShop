@@ -1,10 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Data;
+using Data;
+using Application;
+using Data.Context;
 using Microsoft.Extensions.Configuration;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
-using OnlineShop.Models;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using System.Reflection;
+using Autofac.Core;
+using Application.Features.CompanyFeatures.Commands;
+using Application.Features.CompanyFeatures.Queries;
+using Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultDatabase") ?? throw new InvalidOperationException("Connection string 'OnlineShopContextConnection' not found.");
@@ -17,11 +26,35 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
             .Build();
+//builder.Services.AddTransient<>();
 builder.Services.AddDbContext<OnlineShopContext>();
-
+builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetService<OnlineShopContext>());
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<OnlineShopContext>();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.IncludeXmlComments(string.Format(@"{0}\OnionArchitecture.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+
+    //c.IncludeXmlComments("OnionArchitecture.xml");
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "OnionArchitecture",
+    });
+});
+
+builder.Services.AddApiVersioning(config =>
+{
+    // Specify the default API Version as 1.0
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    // If the client hasn't specified the API version in the request, use the default API version number 
+    config.AssumeDefaultVersionWhenUnspecified = true;
+    // Advertise the API versions supported for the particular endpoint
+    config.ReportApiVersions = true;
+});
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+//builder.Services.Add
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,7 +68,10 @@ if (!app.Environment.IsDevelopment())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnionArchitecture");
+    });
 }
 
 
@@ -46,10 +82,15 @@ app.UseRouting();
 
 
 app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();

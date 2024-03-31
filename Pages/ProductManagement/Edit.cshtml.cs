@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Data;
-using OnlineShop.Models;
+using Data.Context;
+using Domain.Entities;
 
 namespace OnlineShop.Pages.ProductManagement
 {
     public class EditModel : PageModel
     {
-        private readonly OnlineShop.Data.OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
 
-        public EditModel(OnlineShop.Data.OnlineShopContext context)
+        public EditModel(OnlineShopContext context)
         {
             _context = context;
         }

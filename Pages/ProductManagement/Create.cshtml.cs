@@ -5,22 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OnlineShop.Data;
-using OnlineShop.Data.Repository;
-using OnlineShop.Models;
+using Data;
+using Data.Repository;
+using Data.Context;
+using Domain.Entities;
 
 namespace OnlineShop.Pages.ProductManagement
 {
     public class CreateModel : PageModel
     {
-        private readonly OnlineShop.Data.OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
         public List<Company> CompanyList;
         ProductRepository ProductRepository;
         public SelectList SelectList { get; set; }
         [BindProperty]
         public int selectedReport { get; set; }
 
-        public CreateModel(OnlineShop.Data.OnlineShopContext context)
+        public CreateModel(OnlineShopContext context)
         {
             _context = context;
             CompanyList=new CompanyRepository().GetAll().ToList();

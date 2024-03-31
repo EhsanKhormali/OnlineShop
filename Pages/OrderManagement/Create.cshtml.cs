@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OnlineShop.Data;
-using OnlineShop.Models;
-using OnlineShop.Repository;
+using Data.Context;
+using Domain.Entities;
+using Data.Repository;
 
 namespace OnlineShop.Pages.OrderManagement
 {
     public class CreateModel : PageModel
     {
-        private readonly OnlineShop.Data.OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
         public Product Product { get; set; }
         public Company Company { get; set; }
         public int _id = 0;

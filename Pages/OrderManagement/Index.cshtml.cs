@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Data;
-using OnlineShop.Data.Repository;
-using OnlineShop.Models;
+using Data.Context;
+using Data.Repository;
+using Domain.Entities;
 
 namespace OnlineShop.Pages.OrderManagement
 {
     public class IndexModel : PageModel
     {
-        private readonly OnlineShop.Data.OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
         public Dictionary<int, Product> Products { get; set; }    
 
-        public IndexModel(OnlineShop.Data.OnlineShopContext context)
+        public IndexModel(OnlineShopContext context)
         {
             _context = context;
         }

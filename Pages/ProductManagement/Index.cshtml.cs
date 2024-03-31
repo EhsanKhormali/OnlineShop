@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Data;
-using OnlineShop.Data.Repository;
-using OnlineShop.Models;
+using Data.Context;
+using Domain.Entities;
+using Data.Repository;
 
 namespace OnlineShop.Pages.ProductManagement
 {
     public class IndexModel : PageModel
     {
-        private readonly OnlineShop.Data.OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
 
-        public IndexModel(OnlineShop.Data.OnlineShopContext context)
+        public IndexModel(OnlineShopContext context)
         {
             _context = context;
         }
