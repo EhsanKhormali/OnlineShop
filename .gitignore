@@ -367,3 +367,4 @@ FodyWeavers.xsd
 /Domain/bin/Debug
 /Application/bin/Debug
 
+/Application/obj/Debug/net8.0/Application.assets.cache
