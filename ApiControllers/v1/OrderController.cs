@@ -1,41 +1,54 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Features.CompanyFeatures.Commands;
 using Application.Features.CompanyFeatures.Queries;
+using Application.Features.OrderFeatures.Commands;
+using Application.Features.OrderFeatures.Queries;
 using Application.Features.ProductFeatures.Commands;
 using Application.Features.ProductFeatures.Queries;
+using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace OnlineShop.ApiControllers.v1
 {
     [ApiVersion("1.0")]
-    public class CompanyController : BaseApiController
+    public class OrderController : BaseApiController
     {
         /// <summary>
-        /// Creates a New Company.
+        /// Creates a New Order.
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCompanyCommand command)
+        public async Task<IActionResult> Create(CreateOrderCommand command)
         {
-            await Mediator.Send(command);
-            return Ok();
+            Product pr = await Mediator.Send(new GetProductByIdQuery { ProductId = command.ProductId });
+            Company company = await Mediator.Send(new GetCompanyByIdQuery { CompanyId = pr.CompanyId });
+            if(company.IsValid && DateTime.Now.TimeOfDay - company.OperationStartTime.Value.TimeOfDay >= TimeSpan.Zero && DateTime.Now.TimeOfDay - company.OperationEndTime.Value.TimeOfDay <= TimeSpan.Zero)
+            {
+                await Mediator.Send(command);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Currently company doesn't accepting orders. It's out of working time ");
+            }
+                
             
         }
         /// <summary>
-        /// Gets all Company.
+        /// Gets all Orders.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllCompaniesQuery()));
+            return Ok(await Mediator.Send(new GetAllOrdersQuery()));
         }
         /// <summary>
         /// Gets Company Entity by Id.
@@ -45,17 +58,17 @@ namespace OnlineShop.ApiControllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await Mediator.Send(new GetCompanyByIdQuery { CompanyId = id }));
+            return Ok(await Mediator.Send(new GetOrderByIdQuery { OrderId = id }));
         }
         /// <summary>
-        /// Deletes Company Entity based on Id.
+        /// Deletes Order Entity based on Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            int result=await Mediator.Send(new DeleteCompanyByIdCommand { CompanyId = id });
+            int result=await Mediator.Send(new DeleteOrderByIdCommand { OrderId = id });
             if (result == default) { return StatusCode(500); } else { return Ok(); }
             
         }
@@ -66,9 +79,9 @@ namespace OnlineShop.ApiControllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("[action]")]
-        public async Task<IActionResult> Update(int id, UpdateCompanyCommand command)
+        public async Task<IActionResult> Update(int id, UpdateOrderCommand command)
         {
-            if (id != command.CompanyId)
+            if (id != command.OrderId)
             {
                 return BadRequest();
             }

@@ -39,6 +39,41 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:OnlineShop.ApiControllers.v1.OrderController.Create(Application.Features.OrderFeatures.Commands.CreateOrderCommand)">
+            <summary>
+            Creates a New Order.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.ApiControllers.v1.OrderController.GetAll">
+            <summary>
+            Gets all Orders.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.ApiControllers.v1.OrderController.GetById(System.Int32)">
+            <summary>
+            Gets Company Entity by Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.ApiControllers.v1.OrderController.Delete(System.Int32)">
+            <summary>
+            Deletes Order Entity based on Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.ApiControllers.v1.OrderController.Update(System.Int32,Application.Features.OrderFeatures.Commands.UpdateOrderCommand)">
+            <summary>
+            Updates the Company Entity based on Id.   
+            </summary>
+            <param name="id"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:OnlineShop.ApiControllers.v1.ProductController.Create(Application.Features.ProductFeatures.Commands.CreateProductCommand)">
             <summary>
             Creates a New Product.
