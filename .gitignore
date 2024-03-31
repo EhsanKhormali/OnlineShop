@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+/OnlineShop/bin/Debug
+/Data/bin/Debug
+/Domain/bin/Debug
+/Application/bin/Debug
+
