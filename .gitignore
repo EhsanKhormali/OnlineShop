@@ -371,3 +371,5 @@ FodyWeavers.xsd
 /Data/obj/Debug
 /Domain/obj/Debug
 
+/Data/obj/*
+/OnlineShop/Migrations
