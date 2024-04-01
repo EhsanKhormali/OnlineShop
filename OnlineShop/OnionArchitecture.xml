@@ -199,5 +199,17 @@
                 directly from your code. This API may change or be removed in future releases.
             </summary>
         </member>
+        <member name="T:OnlineShop.Migrations.init">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.init.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.init.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.init.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

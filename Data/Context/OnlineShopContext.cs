@@ -7,6 +7,8 @@ using Domain.Entities;
 using System.Collections.Generic;
 using Application.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Runtime.CompilerServices;
 
 namespace Data.Context
 {
@@ -25,6 +27,8 @@ namespace Data.Context
             return n;
         }
 
+        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -32,7 +36,7 @@ namespace Data.Context
             .AddJsonFile("appsettings.json")
             .Build();
             
-            optionsBuilder.UseSqlServer(ConfigurationExtensions.GetConnectionString(configuration, "DefaultDatabase"));
+            optionsBuilder.UseSqlServer(ConfigurationExtensions.GetConnectionString(configuration, "DefaultDatabase"), b => b.MigrationsAssembly("OnlineShop"));
 
         }
 
@@ -44,13 +48,11 @@ namespace Data.Context
             // any guid
             const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
             // any guid, but nothing is against to use the same one
-            const string ROLE_ID = ADMIN_ID;
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
-            {
-                Id = ROLE_ID,
-                Name = "admin",
-                NormalizedName = "admin"
-            });
+             const string ROLE_ID = ADMIN_ID;
+            //modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = ROLE_ID, ConcurrencyStamp = ROLE_ID.ToString() });
+
+
 
             var hasher = new PasswordHasher<OnlineShopUser>();
             modelBuilder.Entity<OnlineShopUser>().HasData(new OnlineShopUser
@@ -62,20 +64,22 @@ namespace Data.Context
                 NormalizedEmail = "admin@admin.com",
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "password"),
-                SecurityStamp = "random",
+                SecurityStamp = String.Empty,
                 FirstName = "Ihsan",
                 LastName = "Hurmali",
                 LockoutEnabled = false,
-                
+                ConcurrencyStamp = Guid.NewGuid().ToString()
 
             }); 
 
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = ROLE_ID,
-                UserId = ADMIN_ID,
+                UserId = ADMIN_ID
                 
             });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
 
 
         }
