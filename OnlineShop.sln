@@ -5,17 +5,17 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop", "OnlineShop\OnlineShop.csproj", "{73CEBFCF-E942-496D-B76F-D331590057A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Domain\Core", "{25B4AC64-A333-407F-8BA1-82B538841F94}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{25B4AC64-A333-407F-8BA1-82B538841F94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrustructure", "Infrustructure", "{30162E4B-2759-4013-B923-B40891179E32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{C5F41359-D49C-4723-9EE9-C222C85CD949}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{3720C81E-419B-4146-AACF-E398EF0615F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{3720C81E-419B-4146-AACF-E398EF0615F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{F0244AD7-018F-4295-8E3E-92C51CB1525E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{F0244AD7-018F-4295-8E3E-92C51CB1525E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{65445352-08FC-44EE-9DE7-38E1DA5DB11E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{65445352-08FC-44EE-9DE7-38E1DA5DB11E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

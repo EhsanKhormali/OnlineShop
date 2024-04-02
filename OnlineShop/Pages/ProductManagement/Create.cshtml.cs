@@ -42,11 +42,11 @@ namespace OnlineShop.Pages.ProductManagement
         {
 
             Product.CompanyId = int.Parse(Request.Form["company_select"]);
-            ModelState.ClearValidationState("Product.Company");
+            /*ModelState.ClearValidationState("Product.Company");
             if (!TryValidateModel(CompanyList[0], "Product.Company"))
             {
                 return Page();
-            }
+            }*/
             if (!ModelState.IsValid)
             {
                 return Page();

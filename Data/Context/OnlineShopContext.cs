@@ -55,22 +55,25 @@ namespace Data.Context
 
 
             var hasher = new PasswordHasher<OnlineShopUser>();
-            modelBuilder.Entity<OnlineShopUser>().HasData(new OnlineShopUser
+            OnlineShopUser user = new OnlineShopUser
             {
                 Id = ADMIN_ID,
                 UserName = "admin",
-                NormalizedUserName = "admin",
+                NormalizedUserName = "admin".ToUpper(),
                 Email = "admin@admin.com",
-                NormalizedEmail = "admin@admin.com",
+                NormalizedEmail = "admin@admin.com".ToUpper(),
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "password"),
                 SecurityStamp = String.Empty,
                 FirstName = "Ihsan",
                 LastName = "Hurmali",
                 LockoutEnabled = false,
                 ConcurrencyStamp = Guid.NewGuid().ToString()
 
-            }); 
+            };
+            string password = hasher.HashPassword(user, "123456");
+            user.PasswordHash = password;
+
+            modelBuilder.Entity<IdentityUser>().HasData(user); 
 
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
@@ -79,7 +82,7 @@ namespace Data.Context
                 
             });
 
-            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
 
 
         }

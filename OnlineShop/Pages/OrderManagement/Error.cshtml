@@ -1,0 +1,14 @@
+﻿@page
+@model OnlineShop.Pages.OrderManagement.ErrorModel
+@{
+}
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+
+
+<h3>Development Mode</h3>
+<p>
+    Selected Company <strong>Not working out of the specified houres</strong> please order the product between @Model.company.OperationStartTime.Value.TimeOfDay.ToString() and @Model.company.OperationEndTime.Value.TimeOfDay.ToString()
+</p>
+

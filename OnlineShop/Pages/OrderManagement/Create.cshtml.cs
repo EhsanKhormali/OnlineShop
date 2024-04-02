@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Data.Context;
 using Domain.Entities;
 using Data.Repository;
+using Azure.Core;
 
 namespace OnlineShop.Pages.OrderManagement
 {
@@ -65,7 +66,7 @@ namespace OnlineShop.Pages.OrderManagement
             }
             else
             {
-                return RedirectToPage("/Error");
+                return RedirectToRoute("Error", new { company.CompanyId });
             }
             
         }
