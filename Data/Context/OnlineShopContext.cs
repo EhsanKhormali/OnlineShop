@@ -48,32 +48,14 @@ namespace Data.Context
             // any guid
             const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
             // any guid, but nothing is against to use the same one
-             const string ROLE_ID = ADMIN_ID;
+            const string ROLE_ID = ADMIN_ID;
             //modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = ROLE_ID, ConcurrencyStamp = ROLE_ID.ToString() });
 
 
 
-            var hasher = new PasswordHasher<OnlineShopUser>();
-            OnlineShopUser user = new OnlineShopUser
-            {
-                Id = ADMIN_ID,
-                UserName = "admin",
-                NormalizedUserName = "admin".ToUpper(),
-                Email = "admin@admin.com",
-                NormalizedEmail = "admin@admin.com".ToUpper(),
-                EmailConfirmed = true,
-                SecurityStamp = String.Empty,
-                FirstName = "Ihsan",
-                LastName = "Hurmali",
-                LockoutEnabled = false,
-                ConcurrencyStamp = Guid.NewGuid().ToString()
-
-            };
-            string password = hasher.HashPassword(user, "123456");
-            user.PasswordHash = password;
-
-            modelBuilder.Entity<IdentityUser>().HasData(user); 
+            
+            //modelBuilder.Entity<OnlineShopUser>().HasData(user);
 
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
@@ -92,7 +74,28 @@ namespace Data.Context
     {
         public void Configure(EntityTypeBuilder<OnlineShopUser> builder)
         {
+            // any guid
+            const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
+            var hasher = new PasswordHasher<OnlineShopUser>();
+            OnlineShopUser user = new OnlineShopUser
+            {
+                Id = ADMIN_ID,
+                UserName = "admin@admin.com",
+                NormalizedUserName = "admin@admin.com".ToUpper(),
+                Email = "admin@admin.com",
+                NormalizedEmail = "admin@admin.com".ToUpper(),
+                EmailConfirmed = true,
+                SecurityStamp = String.Empty,
+                FirstName = "Ihsan",
+                LastName = "Hurmali",
+                LockoutEnabled = false,
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+
+            };
+            string password = hasher.HashPassword(user, "123456");
+            user.PasswordHash = password;
             builder.Property(x => x.FirstName).HasMaxLength(100);
+            builder.HasData(user);
         }
     }
 }
