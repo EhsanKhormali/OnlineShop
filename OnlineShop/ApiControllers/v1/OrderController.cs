@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Application.Features.CompanyFeatures.Commands;
 using Application.Features.CompanyFeatures.Queries;
@@ -29,14 +30,24 @@ namespace OnlineShop.ApiControllers.v1
         {
             Product pr = await Mediator.Send(new GetProductByIdQuery { ProductId = command.ProductId });
             Company company = await Mediator.Send(new GetCompanyByIdQuery { CompanyId = pr.CompanyId });
-            if(company.IsValid && DateTime.Now.TimeOfDay - company.OperationStartTime.Value.TimeOfDay >= TimeSpan.Zero && DateTime.Now.TimeOfDay - company.OperationEndTime.Value.TimeOfDay <= TimeSpan.Zero)
+            bool inWorkingTime = DateTime.Now.TimeOfDay - company.OperationStartTime.Value.TimeOfDay >= TimeSpan.Zero && DateTime.Now.TimeOfDay - company.OperationEndTime.Value.TimeOfDay <= TimeSpan.Zero;
+            if (company.IsValid && inWorkingTime )
             {
                 await Mediator.Send(command);
                 return Ok();
             }
             else
             {
-                return BadRequest("Currently company doesn't accepting orders. It's out of working time ");
+                StringBuilder sb = new StringBuilder();
+                if (!company.IsValid)
+                {
+                    sb.AppendLine("The compant not validated by the website owner");
+                }
+                if (!inWorkingTime)
+                {
+                    sb.Append("Currently company doesn't accepting orders. It's out of working time");
+                }
+                return BadRequest(sb.ToString());
             }
                 
             
