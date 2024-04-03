@@ -28,17 +28,18 @@ This project is an ASP.NET Core application that combines a Razor Pages web appl
 3. Update connection string in `appsettings.json` with your SQL Server details.
 4. Run database migrations: `dotnet ef migrations add <migration_name>` and `dotnet ef database update`
 5. Start the application: `dotnet run`
-
+* **Note:** You cant edit admin user credential in OnlineShopContext.cs file.
+* 
 ### Project Structure
 
-* **src:** Contains the source code for the application.
-    * **Pages:** Code for the Razor Pages web application.
-    * **ApiControllers:** Code for the Web API controllers and models.
-    * **Data:** Data access layer including repositories and entities.
-    * **Mediators:** Contains classes implementing MediatR handlers.
-    * **Services:** Business logic services.
+* **OnlineShop solution:** Contains the source code for the application. To apply Onion Architechture the project sepereted to thee layer. Core is the most inside layer, infrustructure is middle layer that contains buisness logic and the peresentation layer. each layer refrences only the inner layer. below is projects that we can see in each layer:
+    * **Pages:** Code for the Razor Pages web application. It's part of peresentation layer project OnlineShop
+    * **ApiControllers:** Code for the Web API controllers and models and part of peresentation layer project OnlineShop
+    * **Data:** Data access layer including repositories and entities. Is's part of infrustructure layer
+    * **Application:** Contains classes implementing features of models and organied based CQRS design patern
+    * **Domain:** Inner most layer project and models all entities without any regrences to upper layers
     * **Program.cs:** Main application configuration file.
-* **appsettings.json:** Stores application configuration settings.
+    * **appsettings.json:** Stores application configuration settings.
 
 ### Deployment
 
