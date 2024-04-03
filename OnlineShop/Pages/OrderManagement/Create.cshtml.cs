@@ -11,6 +11,7 @@ using Data.Context;
 using Domain.Entities;
 using Data.Repository;
 using Azure.Core;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace OnlineShop.Pages.OrderManagement
 {
@@ -20,6 +21,7 @@ namespace OnlineShop.Pages.OrderManagement
         public Product Product { get; set; }
         public Company Company { get; set; }
         public int _id = 0;
+        public bool CanBeOrdered { get; set; }
 
         public CreateModel(OnlineShopContext context)
         {
@@ -37,8 +39,8 @@ namespace OnlineShop.Pages.OrderManagement
                 _id = (int)id;
                 Product = new ProductRepository().GetById(_id);
                 Company = new CompanyRepository().GetById(Product.CompanyId);
+                CanBeOrdered = (DateTime.Now.TimeOfDay - Company.OperationStartTime.Value.TimeOfDay >= TimeSpan.Zero && DateTime.Now.TimeOfDay - Company.OperationEndTime.Value.TimeOfDay <= TimeSpan.Zero) && Company.IsValid;
             }
-
             return Page();
         }
 
@@ -53,11 +55,11 @@ namespace OnlineShop.Pages.OrderManagement
             {
                 return Page();
             }
-            Product product=new ProductRepository().GetById(_id);
-            Company company=new CompanyRepository().GetById(product.CompanyId);
+            Product=new ProductRepository().GetById(_id);
+            Company =new CompanyRepository().GetById(Product.CompanyId);
             Order.OrderDate = DateTime.Now;
             Order.ProductId=_id;
-            if (DateTime.Now.TimeOfDay-company.OperationStartTime.Value.TimeOfDay>= TimeSpan.Zero && DateTime.Now.TimeOfDay - company.OperationEndTime.Value.TimeOfDay <= TimeSpan.Zero)
+            if (DateTime.Now.TimeOfDay-Company.OperationStartTime.Value.TimeOfDay>= TimeSpan.Zero && DateTime.Now.TimeOfDay - Company.OperationEndTime.Value.TimeOfDay <= TimeSpan.Zero)
             {
                 _context.Orders.Add(Order);
                 await _context.SaveChangesAsync();
@@ -66,7 +68,7 @@ namespace OnlineShop.Pages.OrderManagement
             }
             else
             {
-                return RedirectToRoute("Error", new { company.CompanyId });
+                return RedirectToPage("Error", new { Company.CompanyId });
             }
             
         }

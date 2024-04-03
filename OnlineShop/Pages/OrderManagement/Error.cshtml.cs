@@ -11,7 +11,7 @@ namespace OnlineShop.Pages.OrderManagement
         public Company? company;
         public void OnGet()
         {
-            int CompanyId = int.Parse(Request.Form["CompanyId"]);
+            int CompanyId = int.Parse(Request.Query["CompanyId"]);
             company =new CompanyRepository().GetById(CompanyId);
         }
     }
