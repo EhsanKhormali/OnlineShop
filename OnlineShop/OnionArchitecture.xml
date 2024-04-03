@@ -199,16 +199,16 @@
                 directly from your code. This API may change or be removed in future releases.
             </summary>
         </member>
-        <member name="T:OnlineShop.Migrations._123">
+        <member name="T:OnlineShop.Migrations.initial">
             <inheritdoc />
         </member>
-        <member name="M:OnlineShop.Migrations._123.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:OnlineShop.Migrations.initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:OnlineShop.Migrations._123.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:OnlineShop.Migrations.initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:OnlineShop.Migrations._123.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:OnlineShop.Migrations.initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
     </members>

@@ -28,7 +28,7 @@
                     Company
                 </th>
                 <th></th>
-                @if (User.IsInRole("admin"))
+                @if (User.IsInRole("Admin"))
                 {
                     <th></th>
                 }
@@ -54,8 +54,7 @@
                     <td>
                         <a asp-page="/OrderManagement/Create" asp-route-id="@item.ProductId">Order</a>
                     </td>
-                    
-                        @if (User.IsInRole("admin"))
+                        @if (User.IsInRole("Admin"))
                         {
                         <th>
                                 <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |

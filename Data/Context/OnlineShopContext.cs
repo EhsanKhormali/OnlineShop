@@ -52,18 +52,12 @@ namespace Data.Context
             //modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = ROLE_ID, ConcurrencyStamp = ROLE_ID.ToString() });
 
-
-
-            
-            //modelBuilder.Entity<OnlineShopUser>().HasData(user);
-
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = ROLE_ID,
                 UserId = ADMIN_ID
                 
             });
-
             //modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
 
 
@@ -98,4 +92,6 @@ namespace Data.Context
             builder.HasData(user);
         }
     }
+
+
 }

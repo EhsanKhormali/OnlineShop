@@ -28,9 +28,12 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
             .Build();
 //builder.Services.AddTransient<>();
 builder.Services.AddDbContext<OnlineShopContext>();
-builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetService<OnlineShopContext>());
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<OnlineShopContext>();
+builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetService<OnlineShopContext>()??new OnlineShopContext());
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<OnlineShopContext>();
 builder.Services.AddEndpointsApiExplorer();
+
 
 builder.Services.AddSwaggerGen(c =>
 {
