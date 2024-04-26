@@ -28,7 +28,7 @@ This project is an ASP.NET Core application that combines a Razor Pages web appl
 3. Update connection string in `appsettings.json` with your SQL Server details.
 4. Run database migrations: `dotnet ef migrations add <migration_name>` and `dotnet ef database update`
 5. Start the application: `dotnet run`
-* **Note:** You cant edit admin user credential in OnlineShopContext.cs file.
+* **Note:** You cant edit admin user credential in OnlineShopContext.cs file. admin account will be added automatically.
 * 
 ### Project Structure
 
